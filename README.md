@@ -10,6 +10,20 @@ A push-to-talk voice assistant for children, on a **Waveshare
 ESP32-S3-Touch-AMOLED-1.43C** — the round 466×466 pendant
 ([ASIN B0GX9S7KGS](https://www.amazon.com/dp/B0GX9S7KGS)).
 
+The device, running this firmware. Hold the button, it listens. Let go, it thinks, then it speaks.
+
+<p align="center">
+  <img src="assets/product/watima-states-2x2.png" alt="Watima in a hand: resting, listening, thinking, and speaking" width="720">
+</p>
+
+The board the firmware is written for. BOOT is the button. The two holes beside USB-C are the microphones.
+
+<p align="center">
+  <img src="backend/public/device-diagram.jpg" alt="Hardware layout: USB-C, microphones, power and boot buttons, 50.20 mm across and 14.50 mm thick" width="640">
+</p>
+
+The same shots, one state at a time: [`assets/product/`](assets/product/).
+
 The point is the parent, not the gadget. A device answers nothing until a
 parent pairs it. The parent sets the child's age, which sets how long the
 answer is, and can read or delete every question. Memory is off, a short
