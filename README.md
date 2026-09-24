@@ -1,6 +1,8 @@
 # Watima
 
-Open source. Not for sale. The project page is [askwatima.com](https://askwatima.com/). That page is not in this repo.
+Open source, under the MIT license in [`LICENSE`](LICENSE). One exception: `firmware/components/port_bsp/` is Waveshare board support and that upstream repo has no license. See [Third-party code](#third-party-code).
+
+The project page is [askwatima.com](https://askwatima.com/). That page is not in this repo.
 
 This repo is what you run yourself: the firmware, the Firebase function, and the parent dashboard in `backend/web`. The dashboard is how a parent watches one device — questions, answers, and usage — on their own project, not a shared service.
 
@@ -25,9 +27,8 @@ Gemini answers, and the reply comes back as speech.
 
 | | |
 | --- | --- |
-| Firmware version | `0.2.0` (from `firmware/VERSION`) |
-| Endpoint | `https://us-central1-watima-7d274.cloudfunctions.net/talk` |
-| Firebase project | `watima-7d274` (Blaze) |
+| Firmware version | `0.5.5` (from `firmware/VERSION`) |
+| Endpoint | Whatever `firebase deploy` prints for **your** project. Do not reuse someone else's. |
 | Typical round trip | 5–9 s |
 
 ## Status
@@ -39,12 +40,12 @@ Gemini answers, and the reply comes back as speech.
 | Full voice loop on hardware | ✅ mic → Wi-Fi → TLS → Gemini → speaker |
 | Conversation memory | ✅ three postures, verified distinct |
 | Per-device identity | ✅ enrolment + bearer tokens, impersonation closed |
-| OTA update | ✅ end-to-end verified, `0.1.0 → 0.2.0` on real hardware |
+| OTA update | ✅ end-to-end verified on real hardware |
 | Firestore TTL | ✅ `ACTIVE` on `expireAt` |
 | SoftAP setup portal | ⚠️ built, not yet exercised on hardware |
-| Device claiming + parent accounts | ⛔ not started |
-| Signed firmware images | ⛔ not started |
-| Flash / NVS encryption | ⛔ decision due before manufacture |
+| Parent dashboard | ✅ `backend/web` — pair a device, set age, read or delete questions |
+| Signed firmware images | ⛔ not in this tree |
+| Flash / NVS encryption | ⛔ not in this tree |
 
 ---
 
@@ -123,25 +124,27 @@ mid-update. See `audio_shutdown()`.
 
 Functions v2 runs on Cloud Run, so the project **must be on Blaze**.
 
+Create your own Firebase project and put it on the Blaze plan. Functions v2 runs on Cloud Run.
+
 ```bash
 cd backend
-firebase login                      # as the project owner
-firebase use watima-7d274
+firebase login
+firebase use --add                  # pick the project you just created
 cd functions && npm install && cd ..
 ```
 
-Secrets (already set on this project):
+Set the secrets on **that** project. Nothing here is pre-filled.
 
 ```bash
-firebase functions:secrets:set GEMINI_API_KEY   # fallback key, see below
-firebase functions:secrets:set DEVICE_KEY       # shared enrolment bootstrap key
+firebase functions:secrets:set GEMINI_API_KEY   # the key your function calls
+firebase functions:secrets:set DEVICE_KEY       # same string as BACKEND_API_KEY in secrets.h
 ```
 
 Check Gemini before deploying:
 
 ```bash
 cd functions
-set -a; . ../../.gemini; set +a
+export GEMINI_API_KEY=your-key
 npm run smoke                       # TTS only  -> reply.wav
 node smoke.js recording.wav         # full path: audio -> answer -> reply.wav
 ```
@@ -166,6 +169,16 @@ firebase deploy --only firestore:rules,firestore:indexes
 
 Model IDs are environment-overridable (`CHAT_MODEL`, `TTS_MODEL`, `VOICE`);
 defaults are `gemini-3.6-flash`, `gemini-3.1-flash-tts-preview`, voice `Kore`.
+
+### Parent dashboard
+
+```bash
+cd backend/web
+npm install
+npm run dev
+```
+
+`src/lib/firebase.ts` and `src/lib/api.ts` still name a reference project. Before you sign in, replace `apiKey`, `authDomain`, `projectId`, and the `talk` URL with the project you just deployed. Left as-is, the dashboard talks to that reference project, not yours.
 
 ---
 
@@ -193,10 +206,9 @@ An erase also wipes NVS, which drops the Wi-Fi settings **and the enrolment
 token** — the device will re-enrol on next boot, which only succeeds if the
 device has been released server-side.
 
-### Back up the factory firmware
+### Back up the board before you flash
 
-Already captured at `backups/factory-01_Fac-full-8MB.bin` (8 MB, verified).
-For another unit:
+The stock image is not in this repo. Read it off the board first if you want a way back:
 
 ```bash
 esptool.py -p /dev/cu.usbmodem* read_flash 0 0x800000 factory-backup.bin
@@ -214,7 +226,7 @@ one fails, or deliberately by **holding BOOT while powering on**.
 1. The screen shows `SETUP`, a QR code and the network name.
 2. Scan the QR — it joins `Watima-Setup-XXXX` directly. (Or join that open
    network and browse to `192.168.4.1`.)
-3. Pick a network, enter the password, paste a Gemini API key.
+3. Pick a network and enter the password. The portal does not ask for a model key. The device only knows the function URL and enrolment key you compiled in.
 4. Save. The device reboots and joins.
 
 A DNS hijack answers every lookup with `192.168.4.1`, which is what makes a
@@ -239,7 +251,7 @@ phone's captive-portal check open the page by itself.
    Both being loud confirms they are real mics rather than one mic plus an echo
    reference. Measured 843–951 across utterances, so `AUDIO_MIC_CHANNEL 0` is
    correct on this hardware.
-3. **Network** — `got ip …`, then `watima ready (fw 0.2.0)`.
+3. **Network** — `got ip …`, then `watima ready` with the version from `firmware/VERSION`.
 4. **Enrolment** — first boot logs the device trading the bootstrap key for its
    own token. Later boots log `token=enrolled`.
 5. **Full loop** — `captured … ms` → `understood …` → `speaking … ms`.
@@ -251,7 +263,7 @@ phone's captive-portal check open the page by itself.
 ```
 POST /
 Authorization: Bearer <per-device token>
-X-Gemini-Key:  <owner's key>            (optional; see SECURITY.md)
+X-Gemini-Key:  <optional>                  (left empty; the function uses its own key)
 Content-Type:  audio/L16;rate=16000;channels=1
 body:          raw mono PCM16LE @ 16 kHz
 
