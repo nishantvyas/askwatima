@@ -1,0 +1,47 @@
+# --- secrets ---
+.gemini
+.wifi
+firmware/main/secrets.h
+backend/functions/.env
+
+# --- esp-idf build output ---
+firmware/build/
+firmware/.cache/
+compile_commands.json
+firmware/sdkconfig
+firmware/sdkconfig.old
+firmware/managed_components/
+firmware/dependencies.lock
+
+# --- node ---
+node_modules/
+npm-debug.log
+firebase-debug.log
+*.local
+
+# --- vite build output ---
+# backend/public/app/ is generated into the hosting root by the firebase
+# predeploy hook (`npm --prefix web run build`). Committing it means every
+# rebuild shows as a 500KB diff of minified React, and the hashed filenames
+# guarantee a conflict on every merge. A clone can regenerate it.
+backend/public/app/
+backend/web/dist/
+
+# --- vendor reference checkout (459MB; re-clone if needed) ---
+vendor-waveshare/
+
+# --- smoke test artifacts ---
+backend/functions/reply.wav
+backend/functions/reply.pcm
+backend/functions/*.wav
+*.DS_Store
+backend/functions/.secret.local
+
+# --- do not publish ---
+# Factory flash dump of the stock board. Not a Watima secret, but it is
+# Waveshare's image and it does not belong in the public tree.
+backups/
+# Phone originals. The product shots under assets/product/ stay.
+assets/*.HEIC
+assets/*.heic
+backend/.firebase/

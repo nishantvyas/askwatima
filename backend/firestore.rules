@@ -1,0 +1,31 @@
+rules_version = '2';
+
+// Deny every client. This is intentional and not a placeholder.
+//
+// The device never talks to Firestore. It only ever calls the `talk` function,
+// authenticated with X-Api-Key, and that function reads and writes history
+// through the Admin SDK - which runs with service-account privileges and
+// bypasses these rules entirely.
+//
+// So the only traffic these rules can possibly govern is a web or mobile SDK
+// client, and nothing of the sort exists in this project. Leaving a permissive
+// rule here would expose every device's conversation history to anyone who
+// learned the project ID, and buy nothing in return.
+//
+// A companion app now DOES exist (the React dashboard under /app), and it still
+// does not touch Firestore: it calls the same function over HTTPS with a Firebase
+// ID token, and the uid is derived from that token server-side. Keep it that way.
+//
+// accounts/{uid} in particular holds a TOKEN BALANCE, which is money. If these
+// rules are ever loosened per-collection, that one stays denied to clients
+// unconditionally - a readable balance is harmless, a writable one is free
+// inference for anyone with the project id. Grants and debits happen only in
+// functions/index.js (grantTokens / debitTokens) and in a deliberate admin
+// script, both of which run with service-account privileges and bypass rules.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "hosting": {
+    "public": "public",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "predeploy": ["npm --prefix web run build"],
+    "rewrites": [
+      { "source": "/signin", "destination": "/app/index.html" },
+      { "source": "/app", "destination": "/app/index.html" },
+      { "source": "/app/**", "destination": "/app/index.html" }
+    ],
+    "headers": [
+      {
+        "source": "**",
+        "headers": [
+          {
+            "//": "frame-src MUST include 'self'. Firebase Auth relays the popup result back to the app through a hidden iframe at <authDomain>/__/auth/iframe, and authDomain is askwatima.com - our own origin - not firebaseapp.com any more. While this listed only the firebaseapp.com host, that iframe was blocked, so sign-in completed at Google, the popup closed, and the app never found out: the parent was left staring at the sign-in button having just signed in. The firebaseapp.com entry stays because Firebase still falls back to it, and accounts.google.com is needed for the FedCM path.",
+            "key": "Content-Security-Policy",
+            "value": "default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.googleapis.com https://*.cloudfunctions.net https://*.firebaseio.com wss://*.firebaseio.com; frame-src 'self' https://watima-7d274.firebaseapp.com https://accounts.google.com; base-uri 'self'; form-action 'self'; object-src 'none'; frame-ancestors 'none'"
+          },
+          {
+            "//": "same-origin-allow-popups, NOT same-origin. Firebase Auth polls window.closed on the popup it opened; plain same-origin severs that handle and the SDK waits forever for a popup it can no longer see. This keeps cross-origin pages from grabbing a handle on us while leaving our own popups reachable.",
+            "key": "Cross-Origin-Opener-Policy",
+            "value": "same-origin-allow-popups"
+          },
+          { "key": "X-Content-Type-Options", "value": "nosniff" },
+          { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+          {
+            "key": "Permissions-Policy",
+            "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+          },
+          {
+            "key": "Strict-Transport-Security",
+            "value": "max-age=31536000; includeSubDomains"
+          }
+        ]
+      },
+      {
+        "//": "Every SPA entry path resolves to index.html through a rewrite, and the header source matches the REQUEST path - so '/app/' and '/app/history' never look like .html files. Catch the whole subtree, then let the more specific assets rule below re-widen the hashed files.",
+        "source": "/app/**",
+        "headers": [{ "key": "Cache-Control", "value": "no-cache" }]
+      },
+      {
+        "source": "/app/assets/**",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=31536000, immutable"
+          }
+        ]
+      },
+      {
+        "//": "Hashed assets above can cache forever, but only if the HTML pointing at them never does. Hosting defaults HTML to an hour, which would strand everyone on the previous bundle after each deploy. Scoped to html and the marketing page's unhashed files so it cannot undo the immutable rule.",
+        "source": "**/*.html",
+        "headers": [{ "key": "Cache-Control", "value": "no-cache" }]
+      },
+      {
+        "source": "/@(site.js|styles.css)",
+        "headers": [{ "key": "Cache-Control", "value": "no-cache" }]
+      },
+      {
+        "//": "The two entry paths that are neither under /app nor end in .html.",
+        "source": "/",
+        "headers": [{ "key": "Cache-Control", "value": "no-cache" }]
+      },
+      {
+        "source": "/signin",
+        "headers": [{ "key": "Cache-Control", "value": "no-cache" }]
+      }
+    ]
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ]
+    }
+  ],
+  "emulators": {
+    "functions": {
+      "port": 5001
+    },
+    "ui": {
+      "enabled": true
+    },
+    "singleProjectMode": true
+  }
+}

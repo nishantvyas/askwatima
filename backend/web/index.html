@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- The dashboard is private to a signed-in parent; keeping it out of search
+         results is the correct default and costs nothing. -->
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/watima.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/watima.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Same href as public/index.html so moving between the marketing page and
+         the dashboard reuses one cache entry. Keep the two in sync. -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..600&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <title>Your devices — Watima</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

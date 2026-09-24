@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img"
+     aria-label="The Watima device: a small round black puck with a glowing green ring on its display, and a fabric lanyard">
+  <!-- The device, drawn from the product photography: a 50mm black puck, glossy
+       glass face over a 1.43in round AMOLED, matte side wall with the two
+       buttons, and the lanyard. Three-quarter view so it reads as an object
+       with depth rather than a flat circle.
+       Replace with a photograph at public/hero.jpg to take over. -->
+  <defs>
+    <radialGradient id="bg" cx="0.42" cy="0.3" r="0.85">
+      <stop offset="0" stop-color="#FFFDF9"/>
+      <stop offset="0.6" stop-color="#F6F1E9"/>
+      <stop offset="1" stop-color="#EDE6DC"/>
+    </radialGradient>
+    <linearGradient id="wall" x1="0" y1="0" x2="1" y2="0.35">
+      <stop offset="0" stop-color="#2C2C31"/>
+      <stop offset="0.45" stop-color="#1B1B1F"/>
+      <stop offset="1" stop-color="#101013"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0.15" y1="0" x2="0.8" y2="1">
+      <stop offset="0" stop-color="#3A3B41"/>
+      <stop offset="0.28" stop-color="#131317"/>
+      <stop offset="1" stop-color="#08080A"/>
+    </linearGradient>
+    <radialGradient id="panel" cx="0.36" cy="0.28" r="0.8">
+      <stop offset="0" stop-color="#0C0D10"/>
+      <stop offset="1" stop-color="#000000"/>
+    </radialGradient>
+    <filter id="drop" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="26" stdDeviation="26" flood-color="#4A3B28" flood-opacity="0.32"/>
+    </filter>
+    <filter id="glow" x="-70%" y="-70%" width="240%" height="240%">
+      <feGaussianBlur stdDeviation="9" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="800" height="800" fill="url(#bg)"/>
+  <ellipse cx="392" cy="628" rx="252" ry="30" fill="#C6B49A" opacity="0.34"/>
+
+  <g filter="url(#drop)">
+    <!-- side wall: the rear body, offset so the crescent reads as depth -->
+    <ellipse cx="452" cy="352" rx="222" ry="232" fill="url(#wall)"/>
+    <!-- speaker output holes along the top edge -->
+    <g fill="#0A0A0C" opacity="0.85">
+      <ellipse cx="470" cy="126" rx="5" ry="8"/><ellipse cx="492" cy="132" rx="5" ry="8"/>
+      <ellipse cx="513" cy="141" rx="5" ry="8"/><ellipse cx="533" cy="153" rx="5" ry="8"/>
+    </g>
+    <!-- PWR and BOOT buttons on the visible wall -->
+    <rect x="628" y="286" width="26" height="52" rx="13" fill="#26262B"/>
+    <rect x="628" y="286" width="26" height="52" rx="13" fill="none" stroke="#3C3C43" stroke-width="1.5"/>
+    <rect x="614" y="392" width="26" height="52" rx="13" fill="#26262B"/>
+    <rect x="614" y="392" width="26" height="52" rx="13" fill="none" stroke="#3C3C43" stroke-width="1.5"/>
+
+    <!-- glossy front, the glass that overhangs the body -->
+    <ellipse cx="392" cy="352" rx="222" ry="232" fill="url(#glass)"/>
+    <ellipse cx="392" cy="352" rx="222" ry="232" fill="none" stroke="#45464D" stroke-width="1.5" opacity="0.7"/>
+    <!-- black bezel ring -->
+    <ellipse cx="392" cy="352" rx="196" ry="206" fill="#0A0A0C"/>
+
+    <!-- the 466x466 panel -->
+    <ellipse cx="392" cy="352" rx="163" ry="171" fill="url(#panel)"/>
+
+    <!-- what it shows: listening -->
+    <g filter="url(#glow)">
+      <ellipse cx="392" cy="336" rx="86" ry="90" fill="none" stroke="#34E0A1" stroke-width="6"/>
+      <ellipse cx="392" cy="336" rx="30" ry="31" fill="#34E0A1"/>
+    </g>
+    <text x="392" y="466" text-anchor="middle" font-family="Figtree, system-ui, sans-serif"
+          font-size="25" font-weight="700" letter-spacing="4.5" fill="#34E0A1">LISTENING</text>
+
+    <!-- glass highlights -->
+    <path d="M232 236 a222 232 0 0 1 132 -110 a250 260 0 0 0 -150 132 z" fill="#FFFFFF" opacity="0.16"/>
+    <path d="M258 486 a222 232 0 0 0 88 92 a250 260 0 0 1 -104 -104 z" fill="#FFFFFF" opacity="0.06"/>
+    <ellipse cx="392" cy="352" rx="222" ry="232" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.09"/>
+  </g>
+
+  <!-- lanyard -->
+  <g>
+    <path d="M300 690 q64 -34 128 -6 q66 30 132 2" fill="none" stroke="#CFCAC2" stroke-width="13" stroke-linecap="round"/>
+    <path d="M300 690 q64 -34 128 -6 q66 30 132 2" fill="none" stroke="#B9B3A9" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
+    <ellipse cx="248" cy="700" rx="30" ry="21" fill="none" stroke="#CFCAC2" stroke-width="9"/>
+    <rect x="286" y="676" width="30" height="26" rx="8" fill="#E4E0D8"/>
+  </g>
+</svg>

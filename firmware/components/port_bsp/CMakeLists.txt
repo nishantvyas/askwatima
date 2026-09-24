@@ -1,0 +1,14 @@
+idf_component_register(
+    SRCS
+    "esp32_s3_touch_amoled_1.43c.cpp"
+    "i2c_bsp.cpp"
+    PRIV_REQUIRES 
+    driver
+    spiffs
+    espressif__esp_lcd_sh8601
+    REQUIRES
+    lvgl
+    codec_board
+    espressif__esp_lvgl_adapter
+    INCLUDE_DIRS
+    "./")

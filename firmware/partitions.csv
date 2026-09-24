@@ -1,0 +1,39 @@
+# ESP-IDF Partition Table - Watima (8MB flash)
+#
+# THIS FILE IS EFFECTIVELY IMMUTABLE ONCE UNITS SHIP. A device cannot be
+# repartitioned over the air, and with Secure Boot the bootloader cannot be
+# replaced at all. Everything reserved here is reserved forever; everything
+# omitted is omitted forever. That is why partitions appear below that nothing
+# uses yet.
+#
+# The table lives at 0x10000, not the 0x8000 default, to give the bootloader a
+# 64KB region. Today's bootloader is 22,272 bytes of the 32KB default - 68% -
+# and Secure Boot V2 adds a 4KB signature block plus verification code, landing
+# around 400 bytes short of the ceiling. An IDF bump would turn that into a
+# build error at a point when the fleet can no longer be changed.
+#
+# Name,      Type, SubType,   Offset,   Size,   Flags
+nvs,         data, nvs,       0x11000,  0x8000,
+nvs_keys,    data, nvs_keys,  0x19000,  0x1000, encrypted
+otadata,     data, ota,       0x1a000,  0x2000,
+phy_init,    data, phy,       0x1c000,  0x1000,
+mfg,         data, nvs,       0x1d000,  0x3000, encrypted
+ota_0,       app,  ota_0,     0x20000,  3M,
+ota_1,       app,  ota_1,     ,         3M,
+storage,     data, spiffs,    ,         1M,
+coredump,    data, coredump,  ,         64K,
+#
+# nvs       8 sectors rather than 6, for wear headroom once anything writes
+#           settings at runtime. Cannot be grown later.
+# nvs_keys  required by CONFIG_NVS_ENCRYPTION. Flash encryption does NOT cover
+#           NVS - without this partition the wifi password and the owner's
+#           Gemini key stay readable via `read_flash | strings` even with
+#           secure boot and flash encryption fully enabled.
+# mfg       read-only per-device identity (serial, batch, HW rev), kept apart
+#           from the read-write nvs the app churns, so an NVS corruption plus
+#           nvs_flash_erase() cannot destroy provisioning data.
+# coredump  the only field diagnostic that survives Secure Boot disabling JTAG
+#           on a device with no serial access.
+#
+# ota_0 remains at 0x20000, so the app layout is unchanged.
+# Ends at 0x730000, leaving ~832KB spare.

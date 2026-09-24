@@ -1,0 +1,119 @@
+# Watima - ESP32-S3-Touch-AMOLED-1.43C
+# Derived from the Waveshare 04_Audio_Test defconfig, plus networking/TLS for the
+# voice pipeline. Board is ESP32-S3-PICO-1-N8R8: 8MB flash, 8MB octal PSRAM.
+
+CONFIG_IDF_TARGET="esp32s3"
+
+# --- Flash / partitions ---
+CONFIG_ESPTOOLPY_FLASHMODE_QIO=y
+CONFIG_ESPTOOLPY_FLASHSIZE_8MB=y
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
+# 64KB bootloader region instead of the 32KB default - see partitions.csv.
+# Must be decided before units ship; the bootloader is not OTA-updatable.
+CONFIG_PARTITION_TABLE_OFFSET=0x10000
+
+# --- Rollback (bootloader behaviour - NOT settable later with Secure Boot) ---
+# Lets a new build be marked provisional and automatically reverted if it fails
+# its health checks. This lives in the bootloader, so if it is missing at first
+# flash the fleet never gets rollback regardless of what the app does.
+CONFIG_BOOTLOADER_APP_ROLLBACK_ENABLE=y
+
+# --- Field diagnostics ---
+# Secure Boot disables JTAG and the device has no serial access in the field,
+# so a coredump in flash is the only way to learn why a unit crashed.
+# NOTE: symbolising these requires the exact watima.elf for that build - CI
+# must archive the .elf alongside every .bin or the dumps are unreadable.
+CONFIG_ESP_COREDUMP_ENABLE_TO_FLASH=y
+CONFIG_ESP_COREDUMP_DATA_FORMAT_ELF=y
+CONFIG_ESP_COREDUMP_CHECKSUM_SHA256=y
+
+# --- CPU / PSRAM (octal, required by this module) ---
+CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ_240=y
+CONFIG_SPIRAM=y
+CONFIG_SPIRAM_MODE_OCT=y
+CONFIG_SPIRAM_SPEED_80M=y
+CONFIG_SPIRAM_XIP_FROM_PSRAM=y
+CONFIG_SPIRAM_FETCH_INSTRUCTIONS=y
+CONFIG_SPIRAM_RODATA=y
+CONFIG_ESP32S3_INSTRUCTION_CACHE_32KB=y
+CONFIG_ESP32S3_DATA_CACHE_64KB=y
+CONFIG_ESP32S3_DATA_CACHE_LINE_64B=y
+CONFIG_COMPILER_OPTIMIZATION_PERF=y
+
+# --- FreeRTOS ---
+CONFIG_FREERTOS_HZ=1000
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=8192
+
+# --- LVGL 9 ---
+CONFIG_LV_USE_CLIB_MALLOC=y
+CONFIG_LV_USE_CLIB_STRING=y
+CONFIG_LV_USE_CLIB_SPRINTF=y
+CONFIG_LV_DEF_REFR_PERIOD=15
+CONFIG_LV_OS_FREERTOS=y
+CONFIG_LV_DRAW_SW_DRAW_UNIT_CNT=2
+CONFIG_LV_OBJ_STYLE_CACHE=y
+CONFIG_LV_USE_QRCODE=y
+CONFIG_LV_FONT_MONTSERRAT_14=y
+CONFIG_LV_FONT_MONTSERRAT_16=y
+CONFIG_LV_FONT_MONTSERRAT_20=y
+CONFIG_LV_FONT_MONTSERRAT_24=y
+CONFIG_LV_FONT_MONTSERRAT_28=y
+CONFIG_LV_FONT_MONTSERRAT_36=y
+
+# (The vendor example also set CONFIG_ESP_BROOKESIA_* here. We depend on
+# esp_lvgl_adapter directly rather than Brookesia, so those symbols do not
+# exist in this build and kconfig warns about them.)
+
+# --- Networking / TLS ---
+# Use the bundled root CA store rather than pinning a single CA, so the
+# backend host can be Firebase, Cloud Run, or anything else with a public cert.
+CONFIG_MBEDTLS_CERTIFICATE_BUNDLE=y
+CONFIG_MBEDTLS_CERTIFICATE_BUNDLE_DEFAULT_FULL=y
+CONFIG_MBEDTLS_DYNAMIC_BUFFER=y
+CONFIG_MBEDTLS_ASYMMETRIC_CONTENT_LEN=y
+CONFIG_ESP_TLS_INSECURE=n
+
+# Internal RAM is the scarce resource on this board, not PSRAM. TLS, the Wi-Fi
+# buffers, the AMOLED's SPI DMA bounce buffer and the audio codec all draw on
+# the same ~260 KB, and losing that race shows up as
+#   spi_master: setup_dma_priv_buffer: Failed to allocate priv TX buffer
+# followed by dropped LCD frames. Pushing the Wi-Fi/LWIP buffers into the 8 MB
+# of PSRAM is what buys the headroom back.
+CONFIG_SPIRAM_TRY_ALLOCATE_WIFI_LWIP=y
+CONFIG_ESP_WIFI_STATIC_RX_BUFFER_NUM=8
+CONFIG_ESP_WIFI_DYNAMIC_RX_BUFFER_NUM=16
+CONFIG_ESP_WIFI_TX_BUFFER_TYPE=1
+CONFIG_ESP_WIFI_DYNAMIC_TX_BUFFER_NUM=16
+CONFIG_LWIP_TCP_SND_BUF_DEFAULT=16384
+CONFIG_LWIP_TCP_WND_DEFAULT=16384
+
+# --- Logging ---
+CONFIG_LOG_DEFAULT_LEVEL_INFO=y
+
+# --- Image decoding ---
+# The idle screen shows a JPEG: a galaxy by default, or whatever photograph the
+# parent uploads. TJPGD is the small decoder (a few KB of code, block-at-a-time
+# working set); libjpeg-turbo is far heavier and buys nothing at 466x466.
+#
+# The decoded frame is 466*466*2 = 434KB at RGB565. That is safe only because
+# LVGL uses the C library allocator and SPIRAM_MALLOC_ALWAYSINTERNAL is 16KB,
+# so anything this size is served from PSRAM. Do not switch LVGL to its own
+# static pool without revisiting that.
+CONFIG_LV_USE_TJPGD=y
+
+# TJPGD refuses to decode a JPEG held in memory unless MEMFS is compiled in - it
+# wraps the buffer in a pseudo-file to feed its reader. Without this the decoder
+# returns INVALID and the image object draws nothing at all, which on a black UI
+# looks exactly like a screen that has simply gone dark.
+CONFIG_LV_USE_FS_MEMFS=y
+CONFIG_LV_FS_MEMFS_LETTER=77
+
+# Decoded-image cache. Zero means the JPEG is decoded again on EVERY redraw:
+# with the screensaver up and the idle dot still animating underneath it, that
+# was a 466x466 decode at up to 66fps, which pegged a core and made the device
+# noticeably hot while the screen was supposedly asleep.
+# 1MB holds the one 434KB frame (466*466*2, RGB565) with room to spare, and
+# lands in PSRAM.
+CONFIG_LV_CACHE_DEF_SIZE=1048576
+CONFIG_LV_IMAGE_HEADER_CACHE_DEF_CNT=4

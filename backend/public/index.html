@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#FFFFFF">
+<title>Watima — a device that answers your child's questions out loud</title>
+<meta name="description" content="A small device for elementary schoolers, ages 5 to 11, that answers spoken questions out loud in a sentence or two and then stops. No screen to fall into. Parents read every question and choose what is kept.">
+<link rel="icon" href="/watima.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/watima.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..600&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta property="og:site_name" content="Watima">
+<meta property="og:title" content="Watima — a voice device that answers your child's questions">
+<meta property="og:description" content="Watima is a small voice device for children aged 5 to 11. A child asks a question out loud; it answers in a sentence or two and stops. Made by DataBeeper LLC.">
+<meta property="og:url" content="https://askwatima.com/">
+<meta property="og:image" content="https://askwatima.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Watima mark, and the words: your child asks, it answers out loud. A voice device for ages 5 to 11. No ads, no screen, no subscriptions, just voice.">
+<!-- summary_large_image, not summary: without it X renders a small square
+     thumbnail and crops a 1.91:1 card to fit it. -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Watima — a voice device that answers your child's questions">
+<meta name="twitter:description" content="A child asks a question out loud; it answers in a sentence or two. For ages 5 to 11. No ads, no screen, no subscriptions.">
+<meta name="twitter:image" content="https://askwatima.com/og.png">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://askwatima.com/">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="mark" href="/" data-nav id="logo"><i></i>Watima</a>
+    <div class="nav-right">
+      <a class="lnk nav-secondary" href="/#parents" id="nav-how">For parents</a>
+      <!-- A plain link, not a signed-in check: keeping Firebase off this page
+           is worth more than showing "Your devices" here, and /signin sends an
+           already-signed-in parent straight through to their devices anyway. -->
+      <a class="lnk" href="/signin" id="nav-signin">Sign in</a>
+      <!-- The only styled button used to be Sign in, which points at a page for
+           owners who do not exist yet. The conversion action gets it instead.
+           Goes straight to sign-up rather than scrolling to the section at the
+           bottom: someone who clicks the button in the header has already
+           decided, and making them read the whole page first to find the same
+           button again is friction with no purpose. -->
+      <a class="btn" href="/signin?reserve=1" id="nav-cta">Reserve a place</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================== marketing ===================== -->
+<main id="v-home">
+
+  <!-- Full-bleed hero. The photograph is deliberately composed with the child
+       on the right and open light on the left, so the headline sits in real
+       negative space rather than on top of a scrim. Swap public/hero.jpg to
+       change it; keep that composition and nothing here needs touching. -->
+  <header class="hero">
+    <div class="hero-media" role="img"
+         aria-label="A boy sitting on a rug holding a small round device up as he asks it a question, his parents watching from the sofa behind"></div>
+    <div class="wrap hero-copy">
+      <!-- Led with the mechanism ("asks / answers / stops") until this read as a spec
+           sheet: true, distinctive, and asking a parent to infer the benefit themselves.
+           The aspiration goes first now; "then goes quiet" still lands in the second
+           sentence, where it reads as the reason to trust it rather than a limitation. -->
+      <!-- The product name, above the headline. Google's branding review checks
+           that the app name on the consent screen appears on the home page, and
+           the headline deliberately does not contain it — "Give your child the
+           gift of curiosity" is the promise, not the product. This states the
+           name in the same words as the consent screen without touching the
+           copy underneath it. -->
+      <!-- Beta sits BESIDE the name chip, never inside it. The chip's text has to
+           stay the exact string "Watima" for Google's OAuth branding review to
+           match it against the consent screen; "WatimaBeta" would not. -->
+      <div class="kicker-row">
+        <p class="kicker"><i></i>Watima</p>
+        <span class="beta">Beta</span>
+      </div>
+      <!-- The break is a desktop typesetting choice, not content. On a phone the
+           line already wraps after "child", so forcing a second break stranded
+           "the" alone on its own line. Hidden below the mobile breakpoint. -->
+      <h1 class="big">Give your child the<br class="wide-br">gift of <em>curiosity</em>.</h1>
+      <p class="agerange">For elementary school — ages 5 to 11</p>
+      <!-- One-line statement of what the product is, high on the page, for the
+           "your home page does not explain the purpose of your app" check. -->
+      <p class="sub" style="margin-bottom:18px"><b>Watima is a small voice device for children
+        aged 5 to 11.</b></p>
+      <p class="sub">Between five and eleven the questions come faster than anyone can answer
+        them well — and "look it up later" is how curiosity quietly gets dropped. Watima answers
+        every one out loud, pitched to exactly how old they are. All the answers, none of the
+        screen.</p>
+      <!-- Was an email box posting to /api/preorder. A typed address can be
+           anything, and every bounced send costs us; a Google account is one
+           Google has already verified, and the same click creates the account
+           we would otherwise have to make later. The form is gone rather than
+           hidden, so there is one path in and one queue out. -->
+      <a class="btn btn-lg" href="/signin?reserve=1">Reserve a place with sign-up</a>
+      <!-- Price moved out of the hero. It is stated in full in the pricing
+           section; repeating it under the button made the first thing a parent
+           read a number rather than the reassurance that nothing is charged. -->
+      <p class="fineprint">No subscription. No payment now — I'll email you when it's ready.</p>
+      <!-- Said in the hero rather than saved for the founder story at the bottom.
+           It is the differentiator against every other connected kids' device: a
+           parent can tell, before scrolling, that the person who answers support
+           email is the person who wrote the firmware. -->
+      <p class="fineprint solo"><b>A solo-founder product, not a corporation.</b> Watima is
+        built, run and supported by me — a solo founder and a parent in Mountain View.</p>
+      <!-- The three trust bullets that used to sit here are gone. They answered
+           the recording objection in second three, which is early - the same
+           three promises are now made in full in #parents ("You see everything.
+           You decide what's kept."), so nothing is lost, only moved later. If
+           the hero ever needs to carry an objection again, this is where it
+           went and why. -->
+    </div>
+  </header>
+
+  <!-- Numbers, with citations, immediately under the hero. Every figure here is
+       from published research and linked to it - a parenting page making claims
+       about child development is exactly where an invented statistic does the
+       most damage, and the sources are load-bearing rather than decorative.
+       White, not .wash: the tinted #why band is next and two tints must not
+       touch. -->
+  <section id="evidence">
+    <div class="wrap">
+      <!-- Three figures, chosen to make one argument rather than three points:
+           curiosity is what predicts achievement, it collapses across exactly
+           the ages this product serves, and the thing filling those hours is a
+           screen. The old pair were both about preschoolers and kindergarteners
+           - true, but a year or two younger than the child we sell to. -->
+      <div class="stats three">
+        <div class="stat">
+          <p class="stat-n">107</p>
+          <p class="stat-l">questions an hour, at five</p>
+          <p class="stat-d">Then it falls off a cliff. By ten or eleven, children ask a
+            handful every couple of hours — in one fifth-grade class the researchers watched,
+            <em>two hours passed without a single question</em>. The collapse happens across
+            exactly the years this device is for.</p>
+        </div>
+        <div class="stat">
+          <p class="stat-n">5h 33m</p>
+          <p class="stat-l">a day on screens, ages 8–12</p>
+          <p class="stat-d">Entertainment media alone, not counting homework. That is what
+            currently occupies the hours when the questions used to be. A screen is very good
+            at holding attention and very bad at answering one thing and stopping.</p>
+        </div>
+        <div class="stat">
+          <p class="stat-n">6,200</p>
+          <p class="stat-l">children studied</p>
+          <p class="stat-d">Followed from birth, curiosity predicted reading and maths scores
+            <em>as strongly as self-control did</em> — and the effect was largest for children
+            from the poorest homes. It is not a soft skill; it is the one that pays.</p>
+        </div>
+      </div>
+      <p class="stat-src">Sources:
+        <a href="https://www.hepgjournals.org/doi/10.17763/haer.81.4.h054131316473115" target="_blank" rel="noopener">Engel, <cite>Children's Need to Know: Curiosity in Schools</cite>, Harvard Educational Review (2011)</a>;
+        <a href="https://www.commonsensemedia.org/sites/default/files/research/report/8-18-census-integrated-report-final-web_0.pdf" target="_blank" rel="noopener">Common Sense Census: <cite>Media Use by Tweens and Teens</cite> (2021)</a>;
+        <a href="https://www.nature.com/articles/s41390-018-0039-3" target="_blank" rel="noopener">Shah et al., <cite>Early Childhood Curiosity and Kindergarten Reading and Math Academic Achievement</cite>, Pediatric Research (2018)</a>.
+        Watima has not been studied by anyone. These findings are about curiosity and about
+        screens — not about this device, and I am not going to pretend otherwise.</p>
+    </div>
+  </section>
+
+  <!-- the tension -->
+  <section class="wash" id="why">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">THE PROBLEM</p>
+        <h2>Between five and eleven,<br>the questions outgrow easy answers.</h2>
+        <p class="lead">How planes stay up. What a black hole is. Why the dinosaurs died and
+          we didn't. Dozens a day, and they arrive faster than anyone can keep up with.</p>
+      </div>
+      <div class="contrast">
+        <div class="c-box">
+          <p class="c-tag">Right now</p>
+          <p class="c-lead">The question has two places to go.</p>
+          <p>A grown-up who doesn't always know. Or a screen that was never designed to give
+             one answer and stop — so handing over a tablet answers the question and starts
+             something else entirely.</p>
+        </div>
+        <div class="c-box lit">
+          <p class="c-tag">With Watima</p>
+          <p class="c-lead">Screen time, without the screen.</p>
+          <p>It hears the question, answers it in a sentence or two, and goes quiet. There is
+             nothing to scroll, nothing to watch, and nothing that recommends a next thing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- for parents -->
+  <section class="ink" id="parents">
+    <div class="wrap">
+      <div class="sec-head wide">
+        <p class="eyebrow">FOR YOU</p>
+        <h2>You see everything. You decide what's kept.</h2>
+        <p class="lead">The two questions every parent asks about a device like this are
+          <strong>what goes in</strong> and <strong>what comes out</strong>. Both are yours to
+          read, and yours to erase.</p>
+      </div>
+
+      <p class="pull">There is no recording to play back.<br>
+        <span>Your child's voice travels encrypted, is turned into text, and the audio is
+        discarded — Watima never writes it to storage. What's kept is the text, for exactly as
+        long as you choose.</span></p>
+
+      <ul class="checks">
+        <li><span class="tick"></span><div><b>Nothing happens until you say so</b>
+          A device answers no questions at all until a parent pairs it to an account. That
+          pairing is your consent, and removing the device withdraws it.</div></li>
+        <li><span class="tick"></span><div><b>Read every question</b>
+          Every question asked and every answer given, listed by day, for as long as you've
+          asked me to keep them.</div></li>
+        <li><span class="tick"></span><div><b>You choose how long</b>
+          Keep nothing, keep an hour so follow-ups make sense, or keep 30 days you can read
+          back. Choosing <em>keep nothing</em> means there's nothing for you to read back
+          either — that's the trade.</div></li>
+        <li><span class="tick"></span><div><b>Delete it all, any time</b>
+          Clear a device's whole history in one action. It leaves your dashboard immediately
+          and is purged from the servers; encrypted backups roll off within 30 days.</div></li>
+        <li><span class="tick"></span><div><b>Answers stay short</b>
+          Length is capped on purpose, so it can't lecture or wander.</div></li>
+        <!-- Every claim here was checked against the actual code and page before
+             it was written: no analytics script, tag manager, pixel or session
+             recorder anywhere on this site, and no telemetry in the firmware.
+             The one third party the page contacts is Google Fonts, which is
+             named rather than glossed over. If a tracker is ever added, this
+             bullet has to come out first. -->
+        <li><span class="tick"></span><div><b>Nothing is tracked, and nothing is sold</b>
+          There is no advertising in Watima and never will be — no ads on the device, none in
+          the app, and nothing about your child is sold or shared with data brokers. The
+          device is silent unless the button is held: it has no microphone that listens
+          between questions, and it reports no usage back beyond what an answer costs.</div></li>
+        <li><span class="tick"></span><div><b>This website doesn't track you either</b>
+          No analytics, no tag manager, no advertising pixels, no session recording — none of
+          it, which you can confirm by viewing the page source. The only outside service this
+          page contacts is Google Fonts, for the typefaces; I'd rather name it than claim a
+          purity I don't have.</div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- how -->
+  <section id="how">
+    <div class="wrap two">
+      <div>
+        <div class="sec-head">
+          <p class="eyebrow">HOW IT WORKS</p>
+          <h2>Ask, wait, listen.</h2>
+        </div>
+        <ol class="steps" style="margin-top:0">
+          <li style="--c:var(--listen)"><div class="n">1</div>
+            <div><h3>Hold and ask</h3><p>Press anywhere on the face. The ring turns green while it listens.</p></div></li>
+          <li style="--c:var(--think)"><div class="n">2</div>
+            <div><h3>Let go</h3><p>The ring turns amber while it works out the answer.</p></div></li>
+          <li style="--c:var(--speak)"><div class="n">3</div>
+            <div><h3>Listen</h3><p>It speaks a sentence or two, then goes back to resting.</p></div></li>
+        </ol>
+        <p class="body" style="margin-top:26px">No typing, no search results to wade
+          through, no browser that leads somewhere else — which matters at five, and still
+          matters at eleven. The answer length is capped on purpose, so it can't lecture
+          or wander.</p>
+      </div>
+
+      <figure class="demo" id="demo">
+        <div class="disc" id="disc" data-s="rest" aria-hidden="true">
+          <div class="ring"><div class="dot"></div></div>
+          <div class="cap" id="disc-cap">HOLD TO TALK</div>
+        </div>
+        <!-- Spoken words live below the device, never on it. The screen only
+             ever shows which state it is in. -->
+        <figcaption id="disc-note">A simulation, at the speed it happens.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+
+
+  <!-- Every bullet here is true of what ships. Saying plainly what it will not
+       do is the strongest trust block available, and it states the
+       educational-not-companion position as a product fact rather than a claim. -->
+  <section class="wash" id="limits">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">LIMITS</p>
+        <h2>What it won't do.</h2>
+        <p class="lead">An honest list, because you're handing this to a child.</p>
+      </div>
+      <div class="grid3">
+        <div class="card" style="--c:var(--think)">
+          <div class="k"><b></b></div>
+          <h3>It can be wrong</h3>
+          <p>It works from a language model, so it will sometimes be wrong or out of date.
+             An answer is the start of a conversation with you, not a source of record.</p>
+        </div>
+        <div class="card" style="--c:var(--rest)">
+          <div class="k"><b></b></div>
+          <h3>It doesn't chat back</h3>
+          <p>It answers and stops. No follow-up question, no prompt to keep going, no greeting
+             when your child picks it up. It builds no picture of them over time.</p>
+        </div>
+        <!-- Red, like the age card below it: in this section red means "safety-critical
+             limit", and these are the two. The other three device colours are doing
+             non-safety work in the cards above. -->
+        <div class="card" style="--c:var(--danger)">
+          <div class="k"><b></b></div>
+          <h3>It can't help in an emergency</h3>
+          <p>It is not a phone, an alarm or a tracker. It cannot call anyone, it does not know
+             where your child is, and it only works on your home Wi-Fi.</p>
+        </div>
+        <!-- Full-width, red ring: this is the card parents are actually scanning for.
+             Split deliberately into what ships and what doesn't — the age grounding is
+             live (systemPromptFor/AGE_WORDS), the classifier and the alert are not. -->
+        <div class="card wide" style="--c:var(--danger)">
+          <div class="k"><b></b></div>
+          <h3>It won't answer above your child's age</h3>
+          <!-- Two parallel topics, not one flowing text. Each column opens with a
+               bold line and a badge so they align across the top; their differing
+               lengths then read as two items rather than a broken column break. -->
+          <div class="pair">
+            <div>
+              <p class="sub-h">Age grounding</p>
+              <p>You set your child's age, and every answer is written for it — the words, the
+                 examples, and how much it assumes they already know. A five-year-old gets a
+                 sentence about why the sky is blue; an eleven-year-old gets the actual reason.
+                 The same question, answered differently, because they are different children.</p>
+            </div>
+            <div>
+              <p class="sub-h">Review after the answer</p>
+              <p>A second pass reads each answer <em>once it has already been spoken</em> and
+                 flags what shouldn't have been said — content above the age on the device,
+                 anything touching self-harm, and similar. When it flags something you get a
+                 notification, with the question that caused it, and the device can stop
+                 answering until you say otherwise. <strong>Be clear about what that is and isn't:</strong> a safety
+                 net that catches things after the fact, not a filter that stops a child hearing
+                 them.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="hardware">
+    <div class="wrap two hw">
+      <div>
+        <div class="sec-head">
+          <p class="eyebrow">THE HARDWARE</p>
+          <h2>Small enough to forget you're holding it.</h2>
+          <p class="lead">Fifty millimetres across and fourteen thick — about the size of a
+            bottle cap, on a lanyard. Two microphones, so it still hears the question in a
+            kitchen with the tap running.</p>
+        </div>
+        <p class="body">The display is there for one reason: to show what it's doing. Green
+          while listening, amber while thinking, blue while speaking. <strong>There is nothing
+          to watch on it.</strong></p>
+        <dl class="spec">
+        <div><dt>Size</dt><dd>50.2 mm across, 14.5 mm thin</dd></div>
+        <div><dt>Screen</dt><dd>1.43″ round AMOLED, 466 × 466</dd></div>
+        <div><dt>Brightness</dt><dd>600 cd/m², 10,000:1 contrast</dd></div>
+        <div><dt>Microphones</dt><dd>Dual array, noise reduction and echo cancellation</dd></div>
+        <div><dt>Sound</dt><dd>Built-in speaker</dd></div>
+        <div><dt>Power</dt><dd>Rechargeable battery, charges over USB-C</dd></div>
+        <div><dt>Wireless</dt><dd>2.4 GHz Wi-Fi</dd></div>
+        <div><dt>In the box</dt><dd>Device and lanyard</dd></div>
+        </dl>
+      </div>
+
+      <figure class="diagram">
+        <img src="/device-diagram.jpg" loading="lazy"
+             alt="Technical drawing of the device showing lanyard mounting holes, speaker output holes, LED, power and boot buttons, USB-C port and two microphones, with dimensions of 50.20 mm across and 14.50 mm thick">
+        <figcaption>Dimensional drawing of the module the first units are built around — two
+          microphones, one speaker, one USB-C port, and no camera. Photographs of finished
+          units when the run is made.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="wash" id="pricing">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">PRICING</p>
+        <h2>$69.99 once. Then only if they keep asking.</h2>
+        <p class="lead">No subscription. The device arrives with a million tokens already on
+          it, and you top up only when curiosity actually runs them down. <strong>The device
+          is yours outright</strong> — if you never buy another token it doesn't stop being
+          yours, and you can wipe it and turn it into your child's own electronics project
+          instead.</p>
+      </div>
+
+      <div class="plans">
+        <div class="plan lit">
+          <p class="plan-tag">THE DEVICE — PRE-ORDER</p>
+          <p class="price"><s>$99.99</s> $69.99<span>once</span></p>
+          <p class="save">Save $30.00 — 30% off, first 1,000 orders</p>
+          <ul>
+            <li><b>A million tokens included</b> — enough for 1,000+ short questions<a class="ast" href="#tokens-note" aria-label="See what a million tokens covers">*</a></li>
+            <li>Watima, with the lanyard</li>
+            <li>Charges over USB-C</li>
+            <li>The parent dashboard — read, and delete, everything</li>
+            <li>Software updates for as long as I run it</li>
+            <li>Yours to keep. It does not stop working when the tokens run out — it tells you.</li>
+          </ul>
+        </div>
+        <div class="plan">
+          <p class="plan-tag">MORE CURIOSITY</p>
+          <p class="price">$9.99<span>per million tokens</span></p>
+          <ul>
+            <li>Buy when you need it. Nothing recurring, nothing to cancel.</li>
+            <li>Tokens don't expire</li>
+            <li>The same price however many you buy — no bulk tiers, no expiring credits</li>
+            <li>The dashboard shows the balance and what's been asked</li>
+            <li>A quiet month costs you nothing at all</li>
+            <li>Answers keep improving — I update the models, not you</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="fineprint" id="tokens-note">* A million tokens is roughly 1,700 short questions
+        for a five-year-old and about 800 for an eleven-year-old — because Watima matches the
+        answer to the child. A five-year-old gets a sentence; an eleven-year-old gets a real
+        explanation, and a longer answer spends more. The dashboard shows your actual balance
+        and how fast it's going, so you're never guessing.</p>
+
+    </div>
+  </section>
+
+  <!-- These three were inside PRICING, which framed them as small print about the
+       money. They are not: they are the three places where we took the expensive
+       option, and each one is checkable. Given a section and a heading of their
+       own, they read as an argument rather than a footnote. -->
+  <section class="wash" id="promise">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">MY PROMISE</p>
+        <h2>Three things I've decided, and why.</h2>
+        <p class="lead">Every one of them costs me something. They're here because the
+          reasoning is the part you can actually check — and a promise you can read is
+          worth more than one you have to take on trust.</p>
+      </div>
+
+      <!-- This used to argue for a flat monthly fee. It became pay-as-you-go once
+           we measured the real cost of a turn: a subscription has to be priced for
+           the heaviest month, which means quiet months subsidise loud ones and every
+           plan needs a daily cap to defend itself. Metering removes both. What
+           happens when the balance hits zero is the Moxie question every buyer of
+           cloud hardware now asks — answer it plainly, above the fold of the fine
+           print, not in terms. -->
+      <div class="plan-note">
+        <h3>Pay per curiosity, not per month</h3>
+        <p>I could charge $9.99 every month and cap the device at so many questions a day.
+          Most of this category does. But children aren't monthly. A child hits a dinosaur
+          week and asks forty questions a day, then barely touches it until something at
+          school sets them off again. <strong>A monthly plan charges the quiet weeks to pay
+          for the loud ones, and then has to cap the loud ones anyway.</strong></p>
+        <p>So I meter it instead. You buy tokens, your child spends them at whatever pace
+          their curiosity runs, and a month where nothing catches their interest costs you
+          nothing. <strong>No cap on the good days.</strong> If they want to spend a Saturday
+          on volcanoes, that's the whole point of the thing.</p>
+        <p><strong>And when the tokens run out:</strong> the device says so, out loud, and
+          stops answering until you top it up. It doesn't brick, it doesn't lose the history,
+          and there is nothing to cancel because there was never anything recurring. I'd
+          rather say it here than bury it in terms you find out about later.</p>
+      </div>
+
+      <div class="plan-note">
+        <h3>Why I don't allow BYOK (Bring Your Own Key)</h3>
+        <p>Devices like this sometimes ask you to open an AI account and paste in your own key.
+          It looks cheaper, and it looks like it keeps me out of your family's data. It would
+          work — the technical part is straightforward. <strong>The case against it is legal
+          and commercial, not technical</strong>, and it comes down to two things.</p>
+        <ul class="reasons bare">
+          <li><b>Personal AI keys aren't licensed for this.</b> Google's terms for individual
+            developer keys bar using them in any service aimed at children. That restriction
+            is about what the service is, not how old the account holder is — so a parent's
+            own key doesn't get around it. Answering questions for children needs a commercial
+            agreement written for that purpose, which is what I'm putting in place, and it
+            isn't something a personal key can offer. It also wouldn't move anything onto you:
+            I'd still be the one collecting and transcribing your child's speech, so the
+            responsibility for it doesn't travel with the credit card.</li>
+          <li><b>The free option trains on what your child says.</b> Without a card attached,
+            Google's terms let them use what's submitted to improve their products, and say
+            human reviewers may read it. Given the choice, most people would pick free — and
+            a child's questions would end up in a training set, where no delete button of mine
+            could ever reach them.</li>
+        </ul>
+        <p>So I pay for the answering on a commercial account, on terms that keep your
+          child's questions out of anyone's training data, and pass the cost through as
+          tokens.</p>
+      </div>
+
+      <!-- The Moxie question, answered with hardware rather than a promise. Every
+           other claim on this page asks a parent to trust us; this one is the only
+           one that survives us. Specific about the part so it is checkable. -->
+      <div class="plan-note">
+        <h3>If you stop paying, you still own a computer</h3>
+        <p>Inside is a <strong>stock ESP32-S3</strong> — a Waveshare
+          ESP32-S3-Touch-AMOLED-1.43C, the same module anyone can buy. Not a locked
+          board, not a custom chip that only talks to my servers. It has 8&nbsp;MB of
+          flash, 8&nbsp;MB of PSRAM, two microphones, a speaker, a round AMOLED touch
+          screen and a USB-C port.</p>
+        <p>Which means the failure mode of this product is not a brick. <strong>If you
+          run out of tokens and never buy more, you are holding a fully functional,
+          reprogrammable computer</strong> — one that plugs into USB-C and takes new
+          firmware from the standard Espressif toolchain like any other dev board. Turn
+          it into a clock, a step counter, a music player, a weather display, or a
+          school project. That is not a loophole I forgot to close; it is a stock part
+          I chose deliberately.</p>
+        <!-- Reset is deliberately one-way. Promising to put Watima back would mean
+             maintaining a restore path, a signed image and the support that comes
+             with both, for the handful of people who change their mind — and it
+             muddles the point, which is that the board stops being ours. -->
+        <p class="col-break"><strong>And I'll help you do it.</strong> Tell me you want to reset
+          yours and I'll send you the whole route: how to put the board into download mode, how
+          to erase it, and how to get the first project running on it. Not a link to a
+          datasheet — actual step-by-step instructions written for someone who has never
+          flashed a microcontroller before.</p>
+        <p>With it come <strong>real, working STEM projects</strong> you can build on this
+          exact hardware with your child — code that compiles and runs, not screenshots of
+          somebody else's. A talking clock. A colour-changing night light. A "how loud is
+          this room?" meter using the two microphones. A step counter. Every one of them is
+          a genuine first electronics project, and the parts are already in your hand.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="preorder">
+    <div class="wrap narrow">
+      <p class="eyebrow">EARLY BATCH</p>
+      <h2>Reserve a place.</h2>
+      <p class="body">I'm building a small first run and filling places in the order they're
+        claimed. <b>$69.99 instead of $99.99 for the first 1,000</b>, with a million tokens on
+        the device and no subscription after it — nothing is charged now. If the date slips
+        you'll hear it from me before you hear it anywhere else.</p>
+      <p style="margin-top:28px"><a class="btn btn-lg" href="/signin?reserve=1">Reserve a place with sign-up</a></p>
+      <p class="fineprint">Signing up both reserves your place and creates your account —
+        there is no password to invent and none to reset later. You'll get two emails: one
+        when I set the price, one before the first run ships. Nothing else. I don't sell or
+        share your address.</p>
+    </div>
+  </section>
+
+  <!-- Google's branding review rejected the first submission with "your home
+       page does not explain the purpose of your app" and "the app name does not
+       match the app name on your home page". Both are literal checks made by a
+       reviewer reading this page, so the answer is a plain statement of what
+       Watima is and what signing in with Google actually does — using the exact
+       app name configured on the consent screen. Do not remove this section
+       without re-reading the branding requirements. -->
+  <!-- .wash, not white: #preorder above is white, and two untinted bands with
+       no rule between them read as one long section. The tint is safe here
+       because the band above is white and the footer below is its own dark
+       block, so no two tinted bands touch. -->
+  <section class="wash" id="about">
+    <div class="wrap narrow">
+      <p class="eyebrow">WHY THIS EXISTS</p>
+      <h2 class="story-h">I built this for my son.</h2>
+
+      <p class="body">I'm Nishant Vyas. I have a ten-year-old, and he is relentlessly curious —
+        mostly about cars, engines and Lego. Why one engine sounds different from another. What
+        actually makes a car fast. Whether the thing he just built would hold together if it were
+        real. One of our favourite things to do in the car is put Gemini on over Bluetooth and
+        let him ask whatever he's wondering about. We do the same at home with our Google Home.</p>
+
+      <figure class="story-photo">
+        <!-- The span exists only to anchor the curl shadows. They have to sit
+             against the bottom of the PHOTO, and the figure's box includes the
+             caption, so positioning them on the figure would float them below the
+             text. -->
+        <span class="photo-frame">
+          <img src="/son-and-car-film.jpg" width="1248" height="832" loading="lazy" decoding="async"
+               alt="My son standing in a car park with his arms folded, studying a white sports car.">
+        </span>
+        <figcaption>This is the face that started it. We were walking back to our own car — the
+          questions began before we got there and did not stop for the rest of the afternoon.</figcaption>
+      </figure>
+
+      <p class="body">Those moments are the best part of my week. But I could never hand either
+        of them to him and walk away, for three reasons.</p>
+
+      <p class="body"><b>They're always listening.</b> A smart speaker sits there with its
+        microphone open, waiting for a wake word. <b>The data goes somewhere I don't control.</b>
+        I can't tell you what's kept, for how long, or make it go away. And <b>they don't
+        move</b> — a Google Home lives on a kitchen counter, so the question has to wait until
+        he's standing near it.</p>
+
+      <p class="body">The obvious answer is to give him a phone. I don't want to. The screen is
+        the whole problem: he'd ask one question and still be there forty minutes later.</p>
+
+      <p class="body">So I built the thing I actually wanted. It only listens while a button is
+        held — no wake word, no open microphone. It's small enough to carry into another room.
+        And <b>I decide what's kept and for how long</b>, because I'm the one holding that
+        switch, not a company.</p>
+
+      <p class="body">To be straight with you: <b>Watima</b> still sends the question to Google's
+        models to get an answer — that's what makes a good answer possible. The difference is
+        that it only sends when the button is pressed, I pay for the commercial terms that
+        keep your child's words out of anyone's training data, and the history belongs to you
+        to read or erase. That's the part I couldn't get any other way, so I built it.</p>
+
+      <!-- This used to be a separate "About Watima" heading, added because Google's
+           OAuth brand review said the home page didn't state the app's purpose and
+           the name didn't match the consent screen. Folded into the story instead —
+           it reads better and still carries every fact the review asks for: the name
+           Watima, what the product does, and the exact scope of Google Sign-In. Do
+           not thin this paragraph out without re-reading that review. -->
+      <p class="body">So that is what <b>Watima</b> is: a small voice device for children aged 5
+        to 11, made by DataBeeper&nbsp;LLC. A child holds a button and asks a question out loud;
+        Watima answers in a sentence or two, pitched to the child's age, and then stops. There is
+        no screen and nothing to scroll. Parents sign in with Google to create the account that
+        owns their device — I use Google Sign-In only to identify the parent, so I receive a
+        name and an email address and nothing else. That account is what pairs a device, sets how
+        long a child's questions are kept, reads or deletes that history, and holds the token
+        balance that pays for answering. <b>Watima never asks for access to a parent's Google
+        data.</b></p>
+      <p class="body">Read the <a href="/privacy.html">Privacy Policy</a> for exactly what is
+        collected and how long it is kept, and the <a href="/terms.html">Terms of Service</a>
+        for how tokens and the hardware work. Questions: <a href="mailto:hello@askwatima.com">hello@askwatima.com</a>.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap foot">
+      <p>Watima — an educational device for children, by DataBeeper LLC.<br>
+        Built for ages 5 to 11 — old enough to ask a real question out loud, young enough
+        that a browser is the wrong place to send them.</p>
+      <p class="foot-note">I use your email address only to tell you about the first run.
+        I don't sell or share it, and you can unsubscribe from any message.</p>
+      <p class="foot-note" style="margin-top:10px"><a href="/privacy.html">Privacy</a> ·
+        <a href="/terms.html">Terms</a> · <a href="mailto:hello@askwatima.com">hello@askwatima.com</a></p>
+      <p class="made">Made with love by a proud parent in Mountain&nbsp;View,&nbsp;California.<br>
+        Watima is run by a solo founder and a parent — I'm the engineer, the support desk and
+        the person who answers your email. DataBeeper&nbsp;LLC is my own company, not a
+        corporation behind me.</p>
+      <p class="copyright">&copy; DataBeeper LLC, 2026</p>
+    </div>
+  </footer>
+</main>
+
+<!-- Sign-in and the dashboard now live in the React app under /app, which is a
+     separate bundle. This page stays static HTML: it is the one page that has
+     to be fast on a cold visit and indexable by search. -->
+<script type="module" src="/site.js"></script>
+</body>
+</html>

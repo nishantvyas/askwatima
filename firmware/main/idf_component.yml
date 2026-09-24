@@ -1,0 +1,5 @@
+dependencies:
+  idf:
+    version: '>=5.5'
+  # espressif/button is pulled in transitively by esp_lvgl_adapter (which pins
+  # 4.x). Do not pin it here - an explicit ^3 pin makes version solving fail.

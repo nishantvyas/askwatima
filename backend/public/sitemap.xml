@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- One public page. The dashboard under /app is private and disallowed in
+     robots.txt, and in-page anchors are not separate URLs, so listing them
+     would just be noise. Keep lastmod honest - a date that never changes is
+     worse than no date, because crawlers learn to ignore it. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://askwatima.com/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>

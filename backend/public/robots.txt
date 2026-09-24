@@ -1,0 +1,15 @@
+# https://askwatima.com/robots.txt
+
+User-agent: *
+Allow: /
+
+# The dashboard is a signed-in parent's own devices and their child's questions.
+# It already carries <meta name="robots" content="noindex">, but that only helps
+# once a page has been fetched and rendered - this keeps well-behaved crawlers
+# from asking at all. Neither is a security control: /app is protected by Firebase
+# Auth and the backend derives identity from a verified token, never from a path.
+Disallow: /app
+Disallow: /app/
+Disallow: /signin
+
+Sitemap: https://askwatima.com/sitemap.xml

@@ -1,0 +1,22 @@
+{
+  "name": "watima-functions",
+  "description": "Voice backend for the Watima device: speech in, spoken answer out.",
+  "main": "index.js",
+  "private": true,
+  "engines": {
+    "node": "22"
+  },
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log",
+    "smoke": "node smoke.js",
+    "local": "node local-server.js"
+  },
+  "dependencies": {
+    "@google/genai": "^2.13.0",
+    "firebase-admin": "^14.2.0",
+    "firebase-functions": "^7.3.0",
+    "nodemailer": "^9.0.3"
+  }
+}

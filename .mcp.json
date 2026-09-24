@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "chrome-devtools": {
+      "command": "/opt/homebrew/bin/npx",
+      "args": ["chrome-devtools-mcp", "--autoConnect"]
+    }
+  }
+}
