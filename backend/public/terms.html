@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#FFFFFF">
 <title>Terms of Service — Watima</title>
-<meta name="description" content="The terms on which Watima is sold and operated: what the device does, how tokens work, and what happens if we shut down.">
+<meta name="description" content="Watima is open-source software. There is nothing to buy, and this website does not create an account.">
 <meta name="robots" content="index,follow">
 <link rel="icon" href="/watima.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,8 +20,7 @@
     <a class="mark" href="/"><i></i>watima</a>
     <div class="nav-right">
       <a class="lnk nav-secondary" href="/#parents">For parents</a>
-      <a class="lnk" href="/signin">Sign in</a>
-      <a class="btn" href="/signin?reserve=1">Reserve a place</a>
+      <a class="btn" href="https://github.com/nishantvyas/askwatima">GitHub</a>
     </div>
   </div>
 </nav>
@@ -30,109 +29,47 @@
   <section>
     <div class="wrap narrow legal">
       <p class="eyebrow">TERMS OF SERVICE</p>
-      <h1>The deal, in plain words.</h1>
+      <h1>Open-source software. Nothing to buy.</h1>
       <p class="legal-date">Last updated 23 September 2026.</p>
 
-      <p class="lead">By reserving a place, creating an account, or using a Watima device, you
-        agree to what follows. It is written to be read, not to be survived.</p>
+      <p class="lead">Watima is MIT-licensed software. This website explains the project.
+        It does not sell a device, take a payment, or open an account.</p>
 
-      <h2>1. Who can use this</h2>
-      <p>You must be <b>18 or over</b> to create an account. The account is held by a parent or
-        guardian, who sets it up on behalf of a child and remains responsible for how it is
-        used. A device does nothing until an adult has paired it to an account.</p>
+      <h2>What you are using</h2>
+      <p>The repository has the firmware, the Firebase function, and the parent dashboard.
+        You deploy them on your own project and flash your own board. A parent pairs a
+        device from that dashboard, sets the child's age, and can read or delete the
+        questions stored there.</p>
 
-      <h2>2. What the service does</h2>
-      <p>Watima listens when a child holds the button, works out an answer, and speaks it
-        aloud. The answer is pitched to the age you set. It then stops — there is no
-        conversation to continue and nothing that suggests a next thing.</p>
-
-      <h2>3. What it is not</h2>
+      <h2>What it is not</h2>
       <ul class="reasons">
-        <li><b>It is not always right.</b> Answers come from a language model and will
-          sometimes be wrong, incomplete or out of date. An answer is the start of a
-          conversation with you, not a source of record. Do not rely on it for anything that
-          matters — medical, legal, financial or safety.</li>
-        <li><b>It is not an emergency device.</b> It cannot call anyone, it does not know
-          where your child is, and it only works on your home Wi-Fi.</li>
-        <li><b>It is not a supervisor.</b> It does not watch your child, and it is not a
-          substitute for you.</li>
+        <li><b>Not a product for sale.</b> There is no price, no reservation, and no token
+          to buy.</li>
+        <li><b>Not always right.</b> Answers come from a language model and can be wrong
+          or out of date.</li>
+        <li><b>Not an emergency device.</b> It cannot call anyone, it does not know where
+          a child is, and it only works on the Wi-Fi you give it.</li>
+        <li><b>Not a supervisor.</b> It answers a question and stops.</li>
       </ul>
 
-      <h2>4. Tokens</h2>
-      <p>Answering costs us money per question, so usage is metered in <b>tokens</b>. A Watima
-        token is not the "roughly a word" token you may have seen elsewhere: it covers the
-        whole turn, including understanding the question, working out the answer, speaking it
-        aloud, and our own running costs.</p>
-      <ul class="reasons">
-        <li>A device ships with a token balance included in the purchase price.</li>
-        <li><b>Tokens do not expire</b>, and they are shared across every device on your
-          account.</li>
-        <li>How far a balance goes depends on your child's age, because older children get
-          longer answers. Your live balance and usage are always visible in the dashboard.</li>
-        <li>When the balance reaches zero the device says so out loud and stops answering
-          until you top up. <b>It does not stop being a device</b> — see section 6.</li>
-        <li>Tokens are a prepaid measure of usage, not money, not currency, and cannot be
-          exchanged, transferred between accounts, or redeemed for cash.</li>
-      </ul>
+      <h2>Your data</h2>
+      <p>Questions stay in the database of the project you run, for as long as that
+        project's memory setting keeps them. See the <a href="/privacy.html">privacy note</a>.
+        This website does not receive them.</p>
 
-      <h2>5. Payment and refunds</h2>
-      <p>Prices are shown before you buy. There is no subscription and nothing recurring: you
-        buy the device, and you buy tokens when you want more. Nothing is charged without your
-        explicit action.</p>
-      <p>If the device arrives faulty, we will replace or refund it. If you change your mind
-        about a token top-up before any of it is spent, email us and we will refund it.</p>
+      <h2>The license</h2>
+      <p>The software is provided as-is, under the MIT license in the repository. There is
+        no warranty. You are responsible for the project you deploy, the model you call,
+        and the child who uses a device you pair.</p>
 
-      <h2>6. The hardware is yours</h2>
-      <p>The device is a standard ESP32-S3 module. When you buy it, you own it outright.</p>
-      <p>If you stop buying tokens — or if we cease trading — <b>you are left holding a fully
-        functional, reprogrammable computer</b>, not a paperweight. It takes new firmware over
-        USB-C using the standard, freely available toolchain. We will not lock the bootloader
-        against you, and we will not push an update that disables hardware you paid for.</p>
-
-      <h2>7. Your content</h2>
-      <p>What your child asks, and what the device answers, belongs to you. We store it only as
-        described in the <a href="/privacy.html">Privacy Policy</a>, only for as long as you
-        choose, and we do not use it to train AI models. You can read it and delete it at any
-        time.</p>
-
-      <h2>8. Acceptable use</h2>
-      <p>Do not use the service to break the law, to attempt to extract or attack the
-        underlying models or infrastructure, to resell access, or to circumvent metering. We
-        may suspend an account that does, and will tell you why.</p>
-
-      <h2>9. If we shut down</h2>
-      <p>Connected products for children have been switched off by their makers before, and
-        buyers have been left with hardware that no longer works. We think you deserve to know
-        our answer in advance: <b>if we wind down, we will give notice, stop selling tokens,
-        and let existing balances run out rather than voiding them.</b> The device remains
-        yours and remains reprogrammable.</p>
-
-      <h2>10. Warranty and liability</h2>
-      <p>The service is provided as-is. To the fullest extent the law allows, we exclude
-        implied warranties, and our total liability to you is limited to what you have paid us
-        in the twelve months before the claim. Nothing here limits liability that cannot
-        lawfully be limited — including for death or personal injury caused by negligence, or
-        for fraud. You may have statutory consumer rights that these terms do not affect.</p>
-
-      <h2>11. Changes and ending</h2>
-      <p>You can stop using the service at any time and ask us to delete your account. We may
-        update these terms; if a change materially affects you, we will email you rather than
-        quietly editing this page.</p>
-
-      <h2>12. Contact</h2>
+      <h2>Contact</h2>
       <p><a href="mailto:hello@askwatima.com">hello@askwatima.com</a></p>
-
-      <p class="legal-note"><b>A note on where this document stands.</b> Watima has not
-        shipped, and no money has been taken. These terms describe how we intend to operate
-        and match how the product is actually built. They will be reviewed by counsel — and
-        the governing-law, dispute-resolution and postal-address clauses completed — before
-        the first sale.</p>
     </div>
   </section>
 
   <footer>
     <div class="wrap foot">
-      <p>Watima — an educational device for children.</p>
+      <p>Watima — an open-source voice device for children.</p>
       <p class="foot-note"><a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> ·
         <a href="mailto:hello@askwatima.com">hello@askwatima.com</a></p>
       <p class="copyright">&copy; Nishant Vyas, 2026</p>

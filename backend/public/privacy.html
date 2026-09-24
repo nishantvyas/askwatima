@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#FFFFFF">
 <title>Privacy Policy — Watima</title>
-<meta name="description" content="What Watima collects from your child, how long it is kept, who it is shared with, and how to delete it.">
+<meta name="description" content="What this project site collects, and what the software stores when you run it yourself.">
 <meta name="robots" content="index,follow">
 <link rel="icon" href="/watima.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,8 +20,7 @@
     <a class="mark" href="/"><i></i>watima</a>
     <div class="nav-right">
       <a class="lnk nav-secondary" href="/#parents">For parents</a>
-      <a class="lnk" href="/signin">Sign in</a>
-      <a class="btn" href="/signin?reserve=1">Reserve a place</a>
+      <a class="btn" href="https://github.com/nishantvyas/askwatima">GitHub</a>
     </div>
   </div>
 </nav>
@@ -30,136 +29,49 @@
   <section>
     <div class="wrap narrow legal">
       <p class="eyebrow">PRIVACY POLICY</p>
-      <h1>What we collect, and what we don't.</h1>
+      <h1>This site does not keep a child's questions.</h1>
       <p class="legal-date">Last updated 23 September 2026.</p>
 
-      <p class="lead">This device is used by children. That makes the honest version of this
-        document short, specific, and free of the phrase "may include". Below is everything
-        that leaves your home, how long it survives, and how to destroy it.</p>
+      <p class="lead">askwatima.com is the project page. It does not create an account,
+        and a child's question never arrives here. The software, when you run it, stores
+        data in the Firebase project you deploy.</p>
 
-      <h2>The short version</h2>
+      <h2>This website</h2>
       <ul class="reasons">
-        <li><b>The audio is never stored.</b> Your child's voice is sent to our service,
-          transcribed, and discarded. There is no recording to play back — not for you, not
-          for us, not for anyone who compels us.</li>
-        <li><b>The text is kept only as long as you choose.</b> The default is one day.</li>
-        <li><b>Nothing your child says trains anyone's AI.</b> We use Google Cloud's Vertex AI
-          under commercial terms that exclude your data from model training.</li>
-        <li><b>We do not sell or share personal information</b>, and we run no advertising.</li>
+        <li><b>No account.</b> There is no public sign-in. Visiting this page does not
+          identify you.</li>
+        <li><b>No analytics.</b> No tag manager, advertising pixel, or session recording.
+          The only outside service the page loads is Google Fonts, for the typefaces.</li>
+        <li><b>Email.</b> If you write to hello@askwatima.com, that message is the only
+          thing this site's author receives from you.</li>
       </ul>
 
-      <h2>What we collect</h2>
-      <h3>From the parent</h3>
-      <p>When you sign in with Google we receive your <b>name, email address and Google
-        account identifier</b>. We do not receive or store your Google password. We keep your
-        email in order to identify your account and to send you the two service emails
-        described below.</p>
-
-      <h3>From the child, through the device</h3>
-      <p>When your child holds the button and speaks, the device sends the recorded audio to
-        our service over an encrypted connection. We convert it to text, generate an answer,
-        and speak that answer back. <b>The audio itself is discarded and never written to
-        storage.</b></p>
-      <p>What can be retained is the <b>text of the question and the text of the answer</b>,
-        together with the device identifier and a timestamp. Whether that happens at all is a
-        setting you control:</p>
+      <h2>When you run the software</h2>
+      <p>The firmware sends audio to the function you deployed. The function turns it into
+        text, asks a model for an answer, and speaks that answer back. <b>The reference
+        function discards the audio.</b> It does not write a recording.</p>
+      <p>What can be kept is the <b>text of the question and the answer</b>, with the device
+        id and a time. You choose that on the device, in the dashboard you run:</p>
       <ul class="reasons">
-        <li><b>Off</b> — nothing is written. No history exists to read or delete.</li>
-        <li><b>Session</b> (default) — kept for <b>one day</b>, so a follow-up question makes
-          sense in context.</li>
-        <li><b>Persistent</b> — kept for <b>30 days</b>, so you can read back a week of what
-          your child has been wondering about.</li>
+        <li><b>Off</b> — nothing is written.</li>
+        <li><b>Session</b> (the default) — kept for <b>one day</b>, so a follow-up can use
+          the last hour of the conversation.</li>
+        <li><b>Persistent</b> — kept for <b>30 days</b>, so you can read it back.</li>
       </ul>
-      <p>Retention is enforced by the database itself, not by a promise in this document:
-        every stored turn carries an expiry timestamp and is deleted automatically when it
-        passes.</p>
-
-      <h3>Operational data</h3>
-      <p>We record the <b>number of tokens</b> each question consumed, request timing, error
-        rates and audio lengths, so we can bill correctly and keep the service working. Our
-        server logs deliberately record <b>lengths and latencies, never content</b> — no
-        question or answer text is written to our logging system.</p>
-
-      <h2>Who else sees it</h2>
-      <ul class="reasons">
-        <li><b>Google Cloud (Vertex AI)</b> — processes the audio and generates the answer. We
-          use the paid, commercial surface specifically because its terms do not permit using
-          submitted content to improve Google's products, unlike the free developer tier.</li>
-        <li><b>Google Firebase</b> — hosting, sign-in and the database, all within the same
-          Google Cloud project.</li>
-        <li><b>Cloudflare</b> — our domain, and the delivery of email we send you.</li>
-      </ul>
-      <p>These are service providers acting on our instructions. <b>We do not sell personal
-        information, we do not share it for cross-context behavioural advertising, and we do
-        not disclose it to data brokers.</b></p>
-
-      <h2>Children's privacy</h2>
-      <p>Watima is intended for children roughly aged 5 to 11, and is set up and controlled by
-        a parent or guardian. A device answers nothing until an adult has created an account
-        and paired it — an unpaired device is inert by design, so no child's speech reaches us
-        before an adult has acted.</p>
-      <p>The parent who pairs the device holds every control described here: reading the
-        history, changing how long it is kept, erasing it, and releasing the device. If you
-        believe a child has used Watima without a parent's involvement, email us and we will
-        delete the associated data.</p>
-
-      <h2>Your controls</h2>
-      <ul class="reasons">
-        <li><b>Read everything.</b> The parent dashboard shows every stored question and
-          answer for each of your devices.</li>
-        <li><b>Delete everything.</b> One action clears a device's history immediately. It is
-          a real deletion, not a hidden flag.</li>
-        <li><b>Stop collection entirely.</b> Set memory to Off and nothing further is written.</li>
-        <li><b>Delete your account.</b> Email us and we will remove your account, your
-          devices and all associated history.</li>
-      </ul>
-      <p>Depending on where you live you may also have rights to access, correct, port or
-        restrict processing of your personal information, and to complain to a supervisory
-        authority. Email us and we will act on any such request.</p>
-
-      <h2>Email we send you</h2>
-      <p>Everything we send is about your own account or your own device. There are four:</p>
-      <ul class="reasons">
-        <li><b>A welcome</b>, once, when your account is created.</li>
-        <li><b>A confirmation</b> when you reserve a place, with your number in the queue.</li>
-        <li><b>A setup note</b> when you pair a device, explaining how it works and which two
-          settings to check first.</li>
-        <li><b>A notice</b> when a device is reset, saying what was deleted. It doubles as a
-          security alert: if you did not do it, you need to know.</li>
-      </ul>
-      <p>If you are in the reservation queue you will also get an email when the final price is
-        set, one before your batch ships, and <b>the occasional short note on how the build is
-        going</b> — how a batch went, something we learned, a decision we changed our mind
-        about. That is the full extent of it. We do not run a marketing newsletter, we never
-        mail you on anyone else's behalf, and replying <b>leave</b> to any of them removes you
-        from the queue and deletes the record.</p>
-
-      <h2>Security</h2>
-      <p>Traffic between the device, your browser and our service is encrypted in transit.
-        Each device authenticates with its own credential rather than a shared key, so one
-        device cannot read another family's history. Access to stored data is denied to all
-        clients by default and mediated only through our authenticated API.</p>
-      <p>No system is perfect. If you find a security problem, please tell us at the address
-        below before telling anyone else, and we will fix it.</p>
-
-      <h2>Changes</h2>
-      <p>If we change this policy in a way that materially affects what we collect or how long
-        we keep it, we will email you rather than quietly updating this page.</p>
+      <p>The dashboard in the repository signs a parent in with Google against <b>your</b>
+        Firebase project. That name and email stay in that project. This website does not
+        receive them.</p>
+      <p>If the function calls Gemini, Google processes that turn. Self-hosting means this
+        project does not keep a second copy of the log. You do, in the database you run.</p>
 
       <h2>Contact</h2>
       <p><a href="mailto:hello@askwatima.com">hello@askwatima.com</a></p>
-
-      <p class="legal-note"><b>A note on where this document stands.</b> Watima has not
-        shipped. This policy describes the system as it is actually built today, and it will
-        be reviewed by counsel — and a postal address added — before the first device reaches
-        a child. If anything here is ever contradicted by what the product does, the product
-        is wrong and we will fix the product.</p>
     </div>
   </section>
 
   <footer>
     <div class="wrap foot">
-      <p>Watima — an educational device for children.</p>
+      <p>Watima — an open-source voice device for children.</p>
       <p class="foot-note"><a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> ·
         <a href="mailto:hello@askwatima.com">hello@askwatima.com</a></p>
       <p class="copyright">&copy; Nishant Vyas, 2026</p>
