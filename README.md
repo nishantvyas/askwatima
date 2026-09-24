@@ -1,6 +1,8 @@
 # Watima
 
-Open source. Not for sale. Site: [askwatima.com](https://askwatima.com/).
+Open source. Not for sale. The project page is [askwatima.com](https://askwatima.com/). That page is not in this repo.
+
+This repo is what you run yourself: the firmware, the Firebase function, and the parent dashboard in `backend/web`. The dashboard is how a parent watches one device — questions, answers, and usage — on their own project, not a shared service.
 
 A push-to-talk voice assistant for children, on a **Waveshare
 ESP32-S3-Touch-AMOLED-1.43C** — the round 466×466 pendant
