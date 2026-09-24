@@ -360,4 +360,4 @@ device's history to anyone who learned the project ID.
 | Path | License |
 | --- | --- |
 | `firmware/components/externlib/codec_board/` | Espressif Modified MIT. Use only with Espressif chips. See that directory's `LICENSE`. |
-| `firmware/components/port_bsp/` | Board support copied from the Waveshare ESP32-S3-Touch-AMOLED-1.43C example. The upstream repo ([waveshareteam/ESP32-S3-Touch-AMOLED-1.43C](https://github.com/waveshareteam/ESP32-S3-Touch-AMOLED-1.43C)) does not ship a license file. Confirm with Waveshare before redistributing. |
+| `firmware/components/port_bsp/` | Board support copied from the Waveshare ESP32-S3-Touch-AMOLED-1.43C example ([upstream](https://github.com/waveshareteam/ESP32-S3-Touch-AMOLED-1.43C)). That repo ships no license file. It is included so this firmware builds. |
