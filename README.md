@@ -1,10 +1,17 @@
 # Watima
 
+Open source. Not for sale. Site: [askwatima.com](https://askwatima.com/).
+
 A push-to-talk voice assistant for children, on a **Waveshare
 ESP32-S3-Touch-AMOLED-1.43C** — the round 466×466 pendant
 ([ASIN B0GX9S7KGS](https://www.amazon.com/dp/B0GX9S7KGS)).
 
-Hold the screen, ask a question, let go. The device uploads what it heard,
+The point is the parent, not the gadget. A device answers nothing until a
+parent pairs it. The parent sets the child's age, which sets how long the
+answer is, and can read or delete every question. Memory is off, a short
+session, or 30 days they can see.
+
+Hold the button, ask a question, let go. The device uploads what it heard,
 Gemini answers, and the reply comes back as speech.
 
 ```
